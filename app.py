@@ -1,11 +1,12 @@
 import streamlit as st
+import unicodedata
 
 BASE_DE_DONNEES = {
     "paludisme": {
         "nom": "Paludisme",
         "description": "Maladie parasitaire transmise par les moustiques Anophèles.",
         "symptomes": "Fièvre élevée, frissons, maux de tête, fatigue, courbatures.",
-        "prevention": "Utiliser des moustiquaires impregnées, prendre un traitement préventif si besoin."
+        "prevention": "Utiliser des moustiquaires imprégnées, prendre un traitement préventif si besoin."
     },
     "diabete": {
         "nom": "Diabète",
@@ -41,15 +42,18 @@ st.write("4. Quitter")
 
 choix = st.text_input("Votre choix (tapez 1, 2, 3 ou 4) :")
 
+def nettoyer(texte):
+    return ''.join(c for c in unicodedata.normalize('NFD', texte) if unicodedata.category(c) != 'Mn').lower().strip()
+
 if choix == "1":
     st.write("Sur quelle maladie souhaitez-vous des informations ? (Paludisme, Diabète, Hypertension, Insuffisance rénale)")
     saisie = st.text_input("Votre réponse :", key="s_1")
     if saisie:
         st.session_state.historique.append(f"Choix 1 - Info : {saisie}")
-        sc = saisie.lower().strip()
+        sc = nettoyer(saisie)
         trouve = False
         for k, v in BASE_DE_DONNEES.items():
-            if k in sc:
+            if nettoyer(k) in sc:
                 st.success(f"**{v['nom']}** : {v['description']}")
                 trouve = True
                 break
@@ -61,11 +65,11 @@ elif choix == "2":
     saisie = st.text_input("Votre réponse :", key="s_2")
     if saisie:
         st.session_state.historique.append(f"Choix 2 - Symptômes : {saisie}")
-        sc = saisie.lower().strip()
+        sc = nettoyer(saisie)
         trouve = False
         for k, v in BASE_DE_DONNEES.items():
-            if k in sc:
-                st.info(f"**Symptômes ({v['nom']})** : {v['symptomres'] if 'symptomres' in v else v['symptomes']}\n\n*Attention : Je n'établis pas de diagnostic. Veuillez consulter un médecin.*")
+            if nettoyer(k) in sc:
+                st.info(f"**Symptômes ({v['nom']})** : {v['symptomes']}\n\n*Attention : Je n'établis pas de diagnostic. Veuillez consulter un médecin.*")
                 trouve = True
                 break
         if not trouve:
@@ -76,10 +80,10 @@ elif choix == "3":
     saisie = st.text_input("Votre réponse :", key="s_3")
     if saisie:
         st.session_state.historique.append(f"Choix 3 - Prévention : {saisie}")
-        sc = saisie.lower().strip()
+        sc = nettoyer(saisie)
         trouve = False
         for k, v in BASE_DE_DONNEES.items():
-            if k in sc:
+            if nettoyer(k) in sc:
                 st.success(f"**Prévention ({v['nom']})** : {v['prevention']}")
                 trouve = True
                 break
@@ -96,4 +100,4 @@ if st.session_state.historique:
     st.markdown("---")
     st.write("**Votre historique de navigation :**")
     for h in st.session_state.historique:
-        st.write(- f"{h}")
+        st.write(f"- {h}")
