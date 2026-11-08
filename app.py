@@ -4,27 +4,27 @@ import unicodedata
 BASE_DE_DONNEES = {
     "paludisme": {
         "nom": "Paludisme",
-        "description": "Maladie parasitaire transmise par les moustiques Anophèles.",
-        "symptomes": "Fièvre élevée, frissons, maux de tête, fatigue, courbatures.",
-        "prevention": "Utiliser des moustiquaires imprégnées, prendre un traitement préventif si besoin."
+        "description": "Maladie infectieuse grave due à un parasite (Plasmodium), transmise par la piqûre de moustiques femelles Anophèles infectés. Elle est particulièrement fréquente en zone tropicale.",
+        "symptomes": "Fièvre élevée et soudaine, frissons intenses, maux de tête violents, courbatures, fatigue intense, nausées et vomissements.",
+        "prevention": "Utilisation systématique de moustiquaires imprégnées d'insecticide, prise d'un traitement préventif si conseillé, et élimination des gîtes larvaires (eaux stagnantes) autour du domicile."
     },
     "diabete": {
         "nom": "Diabète",
-        "description": "Trouble métabolique caractérisé par un excès de sucre dans le sang (hyperglycémie).",
-        "symptomes": "Soif intense, envies fréquentes d'uriner, fatigue, perte de poids inexpliquée.",
-        "prevention": "Avoir une alimentation équilibrée, pratiquer une activité physique régulière, éviter les excès de sucre."
+        "description": "Maladie chronique caractérisée par un taux excessif de sucre dans le sang (hyperglycémie), liée à une mauvaise production ou utilisation de l'insuline par l'organisme.",
+        "symptomes": "Soif excessive et inhabituelle, envies très fréquentes d'uriner, fatigue chronique, perte de poids inexpliquée malgré un appétit normal, et parfois vision trouble.",
+        "prevention": "Adoption d'une alimentation saine et équilibrée pauvre en sucres rapides, pratique régulière d'une activité physique, maintien d'un poids stable et contrôles médicaux réguliers."
     },
     "hypertension": {
         "nom": "Hypertension Artérielle",
-        "description": "Élévation chronique de la pression du sang dans les artères.",
-        "symptomes": "Maux de tête matinaux, vertiges, palpitations, fatigue.",
-        "prevention": "Réduire la consommation de sel, faire du sport, limiter le stress et l'alcool."
+        "description": "Pathologie chronique caractérisée par une pression anormalement élevée du sang dans les artères, ce qui fatigue le cœur et endommage les vaisseaux sanguins.",
+        "symptomes": "Maux de tête fréquents (surtout au réveil), vertiges, bourdonnements d'oreilles, palpitations cardiaques, fatigue inhabituelle ou essoufflement à l'effort.",
+        "prevention": "Réduction de la consommation de sel, limitation de l'alcool et du tabac, gestion efficace du stress, pratique d'un sport régulier et alimentation riche en fruits et légumes."
     },
     "insuffisance renale": {
         "nom": "Insuffisance Rénale",
-        "description": "Incapacité progressive des reins à filtrer correctement les déchets du sang.",
-        "symptomes": "Fatigue, gonflements des jambes ou des paupières, mictions modifiées.",
-        "prevention": "Boire suffisamment d'eau, surveiller sa tension et sa glycémie, éviter l'abus de certains médicaments."
+        "description": "Altération progressive et durable de la fonction des reins, qui perdent peu à peu leur capacité à filtrer les déchets du sang et à réguler l'équilibre du corps.",
+        "symptomes": "Fatigue persistante liée à l'anémie, gonflements (œdèmes) au niveau des jambes, des chevilles ou des paupières, modifications des urines, et démangeaisons cutanées.",
+        "prevention": "Boire de l'eau en quantité suffisante chaque jour, contrôler rigoureusement sa tension artérielle et sa glycémie, et éviter l'abus d'automédication (notamment certains anti-inflammatoires)."
     }
 }
 
@@ -54,7 +54,7 @@ if choix == "1":
         trouve = False
         for k, v in BASE_DE_DONNEES.items():
             if nettoyer(k) in sc:
-                st.success(f"**{v['nom']}** : {v['description']}")
+                st.success(f"**{v['nom']}**\n\n{v['description']}")
                 trouve = True
                 break
         if not trouve:
@@ -69,7 +69,7 @@ elif choix == "2":
         trouve = False
         for k, v in BASE_DE_DONNEES.items():
             if nettoyer(k) in sc:
-                st.info(f"**Symptômes ({v['nom']})** : {v['symptomes']}\n\n*Attention : Je n'établis pas de diagnostic. Veuillez consulter un médecin.*")
+                st.info(f"**Symptômes associés au {v['nom']}** :\n\n{v['symptomes']}\n\n*Attention : Je n'établis pas de diagnostic. Veuillez consulter un médecin.*")
                 trouve = True
                 break
         if not trouve:
@@ -84,7 +84,7 @@ elif choix == "3":
         trouve = False
         for k, v in BASE_DE_DONNEES.items():
             if nettoyer(k) in sc:
-                st.success(f"**Prévention ({v['nom']})** : {v['prevention']}")
+                st.success(f"**Conseils de prévention ({v['nom']})** :\n\n{v['prevention']}")
                 trouve = True
                 break
         if not trouve:
